@@ -46,12 +46,29 @@ export const Bar: React.FC<{ track: TrackType | null }> = ({ track }) => {
     }
   }, [volume]);
 
+  useEffect(() => {
+    if (track && audioRef.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  }, [track])
+
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (audioRef.current) {
       audioRef.current.currentTime = parseFloat(e.target.value);
       setCurrentTime(audioRef.current.currentTime);
     }
   };
+
+  const handleNextTrack = () => {
+    alert("Еще не реализовано")
+  }
+  const handlePrevTrack = () => {
+    alert("Еще не реализовано")
+  }
+  const handleShuffleTrack = () => {
+    alert("Еще не реализовано")
+  }
   const formattedCurrentTime = formatSecond(Number(currentTime.toFixed(0)));
   const formattedDuration = formatSecond(Number(duration.toFixed(0)));
   return (
@@ -75,7 +92,7 @@ export const Bar: React.FC<{ track: TrackType | null }> = ({ track }) => {
         <div className={styles.bar__playerBlock}>
           <div className={styles.bar__player}>
             <div className={styles.playerControls}>
-              <div className={styles.player__btnPrev}>
+              <div className={styles.player__btnPrev} onClick = {handlePrevTrack}>
                 <svg className={styles.player__btnPrevSvg}>
                   <use xlinkHref="img/icon/sprite.svg#icon-prev"></use>
                 </svg>
@@ -97,7 +114,7 @@ export const Bar: React.FC<{ track: TrackType | null }> = ({ track }) => {
                   </svg>
                 )}
               </div>
-              <div className={styles.player__btnNext}>
+              <div className={styles.player__btnNext} onClick = {handleNextTrack}>
                 <svg className={styles.player__btnNextSvg}>
                   <use xlinkHref="img/icon/sprite.svg#icon-next"></use>
                 </svg>
@@ -115,7 +132,7 @@ export const Bar: React.FC<{ track: TrackType | null }> = ({ track }) => {
                   <use xlinkHref="img/icon/sprite.svg#icon-repeat"></use>
                 </svg>
               </div>
-              <div className={clsx(styles.player__btnShuffle, styles._btnIcon)}>
+              <div className={clsx(styles.player__btnShuffle, styles._btnIcon)} onClick = {handleShuffleTrack}>
                 <svg className={styles.player__btnShuffleSvg}>
                   <use xlinkHref="img/icon/sprite.svg#icon-shuffle"></use>
                 </svg>
