@@ -134,7 +134,7 @@
   justify-content: center;
 }
 
-.modalBtnEnter a {
+.modalBtnEnter {
   width: 100%;
   height: 100%;
   font-style: normal;
@@ -177,7 +177,7 @@
   justify-content: center;
 }
 
-.modalBtnSignup a {
+.modalBtnSignup {
   width: 100%;
   height: 100%;
   font-style: normal;
@@ -200,3 +200,7 @@
 .login {
   margin-bottom: 30px;
 }
+ .error {
+  margin-top: 10px;
+  color: red
+ }

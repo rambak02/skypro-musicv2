@@ -7,15 +7,18 @@ import ProgressBar from "../ProgressBar/ProgressBar";
 import { formatSecond } from "./helper/helper";
 import { useAppDispatch, useAppSelector } from "@/hooks/store";
 import {
+  dislike,
+  likeTrack,
   nextTrack,
   prevTrack,
   togglePlayingTrack,
   toggleShuffleTrack,
 } from "@/store/features/playlistSlice";
+import { BarLike } from "./BarLike";
+
 
 export const Bar = () => {
-  const currentTrack = useAppSelector((state) => state.playlist.currentTrack);
-  const track = currentTrack;
+  const track = useAppSelector((state) => state.playlist.currentTrack) ;
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const shuffleTrack = useAppSelector((state) => state.playlist.isShuffled);
   //состояние для зацикливания трека
@@ -26,6 +29,7 @@ export const Bar = () => {
   const [volume, setVolume] = useState<number>(0.5);
   const dispatch = useAppDispatch();
   const duration = audioRef.current?.duration || 0;
+
 
   const handleNext = () => {
     dispatch(nextTrack());
@@ -43,7 +47,7 @@ export const Bar = () => {
     return () => {
       audioRef.current?.removeEventListener("ended", handleNext);
     };
-  }, [currentTrack]);
+  }, [track]);
 
   const tooglePlay = () => {
     if (isPlaying) {
@@ -89,10 +93,9 @@ export const Bar = () => {
 
   const formattedCurrentTime = formatSecond(Number(currentTime.toFixed(0)));
   const formattedDuration = formatSecond(Number(duration.toFixed(0)));
-
-  if (!currentTrack) {
-    return null;
-  }
+ if (!track) {
+  return 
+ }
 
   return (
     <div className={styles.bar}>
@@ -187,21 +190,7 @@ export const Bar = () => {
                   </a>
                 </div>
               </div>
-
-              <div className={styles.trackPlay__likeDis}>
-                <div className={clsx(styles.trackPlay__like, styles._btnIcon)}>
-                  <svg className={styles.trackPlay__likeSvg}>
-                    <use xlinkHref="img/icon/sprite.svg#icon-like"></use>
-                  </svg>
-                </div>
-                <div
-                  className={clsx(styles.trackPlay__dislike, styles._btnIcon)}
-                >
-                  <svg className={styles.trackPlay__dislikeSvg}>
-                    <use xlinkHref="img/icon/sprite.svg#icon-dislike"></use>
-                  </svg>
-                </div>
-              </div>
+              {track ?  <BarLike track={track}/> : ""}
             </div>
           </div>
           <div className={clsx(styles.bar__volumeBlock, styles.volume)}>

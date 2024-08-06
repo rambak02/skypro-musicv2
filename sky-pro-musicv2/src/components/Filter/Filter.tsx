@@ -23,7 +23,7 @@ export const Filter = ({ tracks }: TracksType) => {
   return (
     <div className={styles.centerblock__filter}>
       <div className={styles.filter__title}>Искать по:</div>
-      {filters.map((filter) => (
+      {/* {filters.map((filter) => (
         <FilterItem
           value={filter.value}
           tracks={tracks}
@@ -33,7 +33,7 @@ export const Filter = ({ tracks }: TracksType) => {
           onClick={handleFilterValue}
           isOpen={filterValue === filter.value}
         />
-      ))}
+      ))} */}
     </div>
   );
 };

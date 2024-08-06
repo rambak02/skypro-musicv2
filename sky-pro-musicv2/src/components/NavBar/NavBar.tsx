@@ -5,13 +5,30 @@ import styles from "./NavBar.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks/store";
+import { logout } from "@/store/features/authSlice";
+import { useRouter } from "next/navigation";
 
 export const NavBar = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
-
+  const user = useAppSelector((state) => state.auth.user);
+  const handleLogoutUser = () => {
+    dispatch(logout());
+  };
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
   };
+  const handleNavigate = () => {
+   
+    if (user) {
+      router.push("/route/favoritePage");
+    } else {
+      alert("вы незарегистрированы");
+    }
+  };
+
   return (
     <div className={styles.mainNav}>
       <div className={styles.navLogo}>
@@ -32,20 +49,26 @@ export const NavBar = () => {
       >
         <ul className={styles.menuList}>
           <li className={styles.menuItem}>
-            <a href="#" className={styles.menuLink}>
+            <a href="/" className={styles.menuLink}>
               Главное
             </a>
           </li>
-          <li className={styles.menuItem}>
-            <a href="#" className={styles.menuLink}>
-              Мой плейлист
-            </a>
+          <li className={styles.menuItem} onClick={handleNavigate}>
+            Мой плейлист
           </li>
-          <li className={styles.menuItem}>
-            <Link href="/signin" className={styles.menuLink}>
-              Войти
-            </Link>
-          </li>
+          {user ? (
+            <li className={styles.menuItem} onClick={handleLogoutUser}>
+              <Link href="/signin" className={styles.menuLink}>
+                Выйти
+              </Link>
+            </li>
+          ) : (
+            <li className={styles.menuItem}>
+              <Link href="/signin" className={styles.menuLink}>
+                Войти
+              </Link>
+            </li>
+          )}
         </ul>
       </div>
     </div>

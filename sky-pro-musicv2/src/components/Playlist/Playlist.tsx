@@ -27,7 +27,7 @@ export const Playlist = ({
       </div>
       <div className={styles.contentPlaylist}>
         {tracks.map((track: TrackType) => (
-          <Track track={track} key={track.id} tracks = {tracks} />
+          <Track track={track} key={track._id} tracks = {tracks} />
         ))}
       </div>
     </div>

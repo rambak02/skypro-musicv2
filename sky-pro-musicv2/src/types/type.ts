@@ -7,7 +7,7 @@ export type StaredUserType = {
 };
 
 export type TrackType = {
-  id: number;
+  _id: number;
   name: string;
   author: string;
   release_date: string;
@@ -22,10 +22,11 @@ export type TracksType = {
   tracks: TrackType[];
 };
 export type FilterItemType = {
-    title: string; 
-    list: string[];
-    value: string;
-    tracks: TrackType[]
-    isOpen: boolean;
-    onClick: (value : string) => void
-  };
+  title: string;
+  list: string[];
+  value: string;
+  tracks: TrackType[];
+  isOpen: boolean;
+  onClick: (value: string) => void;
+};
+
